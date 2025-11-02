@@ -4,13 +4,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Bayan — DARYN 6</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+      background: linear-gradient(180deg,#eaf1ff 0%,#f8fbff 100%);
+      color:#222;
+      margin:0;
+      text-align:center;
+    }
+    header {
+      background:#003366;
+      color:white;
+      padding:1rem;
+      border-bottom:5px solid gold;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    h1,h2{margin:0.5rem 0;}
+    #starsBadge{
+      background:gold;
+      color:#003366;
+      padding:0.4rem 0.8rem;
+      border-radius:12px;
+      font-weight:bold;
+      font-size:1rem;
+    }
+
+    .menu {
+      margin-top:2rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      align-items:center;
+    }
+    .btn {
+      background:#004aad;
+      color:white;
+      padding:0.8rem 2rem;
+      border-radius:14px;
+      text-decoration:none;
+      font-size:1.2rem;
+      cursor:pointer;
+      transition:0.3s;
+      border:none;
+    }
+    .btn:hover{background:#002f6c;}
+    .section {display:none; padding:1rem;}
+    .active {display:block;}
+    .back {color:gold; text-decoration:none; font-weight:bold;}
+
+    /* PIN overlay */
+    .overlay {
+      position:fixed;top:0;left:0;
+      width:100%;height:100%;
+      background:rgba(0,0,0,0.8);
+      display:flex;align-items:center;justify-content:center;
+      z-index:999;
+    }
+    .overlay-card {
+      background:white;
+      padding:2rem;
+      border-radius:16px;
+      box-shadow:0 0 20px rgba(0,0,0,0.3);
+    }
+    .overlay input {
+      font-size:1.2rem;
+      padding:0.5rem;
+      width:100px;
+      text-align:center;
+    }
+    .overlay button {
+      margin-top:1rem;
+      padding:0.6rem 1.5rem;
+      background:#004aad;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+    }
+    .overlay button:hover {background:#002f6c;}
+  </style>
 </head>
 <body>
+  <!-- PIN -->
   <div class="overlay" id="overlay">
     <div class="overlay-card">
       <h1>Enter PIN</h1>
-      <input type="password" id="pin" maxlength="4" autocomplete="off" placeholder="****" />
+      <input type="password" id="pin" maxlength="4" placeholder="****" />
       <button onclick="checkPin()">Enter</button>
       <p id="pinMessage"></p>
     </div>
@@ -18,19 +99,123 @@
 
   <header>
     <h1>AI Bayan — DARYN 6</h1>
+    <span id="starsBadge">⭐ 0</span>
   </header>
 
-  <main>
+  <!-- Главное меню -->
+  <div id="menu" class="active section">
     <h2>Main Menu</h2>
     <div class="menu">
-      <a href="useofenglish.html" class="btn">🧩 Use of English</a>
-      <a href="reading.html" class="btn">📖 Reading</a>
-      <a href="listening.html" class="btn">🎧 Listening</a>
-      <a href="writing.html" class="btn">✍️ Writing</a>
-      <a href="trainer.html" class="btn">🤖 AI Bayan Trainer</a>
+      <button class="btn" onclick="openSection('use')">🧩 Use of English</button>
+      <button class="btn" onclick="openSection('read')">📖 Reading</button>
+      <button class="btn" onclick="openSection('listen')">🎧 Listening</button>
+      <button class="btn" onclick="openSection('write')">✍️ Writing</button>
+      <button class="btn" onclick="openSection('trainer')">🤖 AI Bayan Trainer</button>
     </div>
-  </main>
+  </div>
 
-  <script src="script.js"></script>
+  <!-- Use of English -->
+  <div id="use" class="section">
+    <h2>🧩 Use of English</h2>
+    <p>1️⃣ She _____ to school every day.</p>
+    <form id="u1">
+      <label><input type="radio" name="q1" value="0"> go</label><br>
+      <label><input type="radio" name="q1" value="1"> goes</label><br>
+      <label><input type="radio" name="q1" value="0"> going</label><br>
+    </form>
+
+    <p>2️⃣ They _____ playing football now.</p>
+    <form id="u2">
+      <label><input type="radio" name="q2" value="0"> is</label><br>
+      <label><input type="radio" name="q2" value="1"> are</label><br>
+      <label><input type="radio" name="q2" value="0"> be</label><br>
+    </form>
+
+    <button class="btn" onclick="checkUse()">✅ Check Answers</button><br><br>
+    <button class="btn" onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <!-- Reading -->
+  <div id="read" class="section">
+    <h2>📖 Reading</h2>
+    <article>
+      <p>Tom is twelve years old. He lives in Aktau and goes to School №6.  
+      Every morning he gets up at seven o’clock and goes to school by bus.  
+      He likes English because his teacher, Bayan Tauova A.S., makes lessons fun.</p>
+    </article>
+    <p>1️⃣ Where does Tom live?</p>
+    <p>2️⃣ What subject does he like?</p>
+    <p>3️⃣ How does he go to school?</p>
+    <button class="btn" onclick="addStars(3)">✅ Mark as Done (+3⭐)</button><br><br>
+    <button class="btn" onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <!-- Listening -->
+  <div id="listen" class="section">
+    <h2>🎧 Listening</h2>
+    <audio controls>
+      <source src="audio1.mp3" type="audio/mpeg" />
+    </audio>
+    <p>Answer after listening.</p>
+    <button class="btn" onclick="addStars(2)">✅ Finished Listening (+2⭐)</button><br><br>
+    <button class="btn" onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <!-- Writing -->
+  <div id="write" class="section">
+    <h2>✍️ Writing</h2>
+    <p>Write an email to your English friend about your school and hobbies (40–50 words).</p>
+    <textarea rows="8" cols="50" placeholder="Write here..."></textarea><br>
+    <button class="btn" onclick="addStars(5)">✅ Submit Writing (+5⭐)</button><br><br>
+    <button class="btn" onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <!-- Trainer -->
+  <div id="trainer" class="section">
+    <h2>🤖 AI Bayan Trainer</h2>
+    <p>Type a few sentences to practise English.</p>
+    <textarea rows="6" cols="50" placeholder="Your answer..."></textarea><br>
+    <button class="btn" onclick="addStars(1)">✅ Done (+1⭐)</button><br><br>
+    <button class="btn" onclick="goBack()">⬅️ Back</button>
+  </div>
+
+  <script>
+    let stars = 0;
+
+    function checkPin(){
+      const pin=document.getElementById("pin").value;
+      const msg=document.getElementById("pinMessage");
+      if(pin==="1402"){document.getElementById("overlay").style.display="none";}
+      else{msg.textContent="❌ Wrong PIN!";msg.style.color="red";}
+    }
+
+    function openSection(id){
+      document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    }
+
+    function goBack(){
+      document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+      document.getElementById("menu").classList.add("active");
+    }
+
+    function addStars(num){
+      stars += num;
+      document.getElementById("starsBadge").textContent = "⭐ " + stars;
+      alert("⭐ +"+num+" stars! Total: "+stars);
+    }
+
+    function checkUse(){
+      const q1 = document.querySelector("#u1 input[name='q1']:checked");
+      const q2 = document.querySelector("#u2 input[name='q2']:checked");
+      let gained = 0;
+      if(q1 && q1.value==="1") gained++;
+      if(q2 && q2.value==="1") gained++;
+      if(gained>0){
+        addStars(gained);
+        alert("✅ Correct answers: "+gained);
+      } else alert("❌ Try again!");
+    }
+  </script>
 </body>
 </html>
