@@ -3,7 +3,7 @@ function checkPin() {
   const pin = document.getElementById("pin").value.trim();
   if (pin === "1402" || pin === "9998") {
     document.querySelector(".overlay").style.display = "none";
-    document.getElementById("home").classList.remove("hidden");
+<section id="home">...</section>
     localStorage.setItem("role", pin === "9998" ? "teacher" : "student");
   } else {
     // просто очищаем поле, без сообщений
