@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Writing — AI Bayan</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>✍️ Writing</h1>
+    <a href="index.html" class="back">🏠 Back to Menu</a>
+  </header>
+
+  <main>
+    <p>Develop your writing skills with structured tasks.</p>
+    <ul>
+      <li>📝 Email Writing</li>
+      <li>📄 Story Writing</li>
+      <li>📬 Review / Article</li>
+    </ul>
+  </main>
+</body>
+</html>
