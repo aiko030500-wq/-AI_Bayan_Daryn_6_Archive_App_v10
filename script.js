@@ -88,3 +88,9 @@ function getAIReply(q) {
   if (q.includes('thank')) return 'You are welcome!';
   return "I'm your study assistant. Ask me about grammar, vocabulary, or writing!";
 }
+// === Chat toggle for small screens ===
+const sidebar = document.querySelector('.sidebar');
+const toggleChat = document.getElementById('toggleChat');
+toggleChat.onclick = () => {
+  sidebar.classList.toggle('active');
+};
