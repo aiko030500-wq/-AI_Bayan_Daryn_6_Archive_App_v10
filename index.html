@@ -7,13 +7,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- === Login Overlay === -->
+  <!-- === PIN Login (no hints, clean) === -->
 <div class="overlay">
   <div class="overlay-card">
     <h1>Enter PIN</h1>
-    <input type="password" id="pin" placeholder="Enter PIN code">
+    <input type="password" id="pin" maxlength="4" autocomplete="off">
     <button onclick="checkPin()">Enter</button>
-    <p class="msg"></p>
   </div>
 </div>
   <div id="pinOverlay" class="overlay">
