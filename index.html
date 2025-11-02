@@ -1,87 +1,35 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Bayan — DARYN English Olympiad Trainer (Grade 6, 2022–2025)</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Bayan — DARYN 6</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- === PIN Login (no hints, clean) === -->
-  <div class="overlay">
+  <div class="overlay" id="overlay">
     <div class="overlay-card">
       <h1>Enter PIN</h1>
-      <input type="password" id="pin" maxlength="4" autocomplete="off">
+      <input type="password" id="pin" maxlength="4" autocomplete="off" placeholder="****" />
       <button onclick="checkPin()">Enter</button>
+      <p id="pinMessage"></p>
     </div>
   </div>
 
   <header>
-    <h1>AI Bayan — DARYN Grade 6</h1>
-    <div class="badges">
-      <span id="roleBadge">Role: Student</span>
-      <span id="starsBadge">⭐ 0</span>
-    </div>
+    <h1>AI Bayan — DARYN 6</h1>
   </header>
 
-  <!-- === Navigation Menu === -->
-  <nav class="menu">
-    <button onclick="goSection('reading')">Reading</button>
-    <button onclick="goSection('listening')">Listening</button>
-    <button onclick="goSection('use')">Use of English</button>
-    <button onclick="goSection('writing')">Writing</button>
-    <button onclick="goHome()">Menu</button>
-  </nav>
-
-  <!-- === Main Content === -->
   <main>
-    <!-- === Главная страница === -->
-    <section id="home">
-      <div class="card">
-        <h2>Welcome!</h2>
-        <p>Choose a section to start practicing Grade 6 DARYN Olympiad tasks (2022–2025).</p>
-      </div>
-    </section>
-
-    <!-- === Раздел Reading === -->
-    <section id="reading" class="hidden">
-      <iframe src="data/reading_all.html" width="100%" height="800" style="border:none; border-radius:12px;"></iframe>
-    </section>
-
-    <!-- === Раздел Listening === -->
-    <section id="listening" class="hidden">
-      <iframe src="data/listening_all.html" width="100%" height="800" style="border:none; border-radius:12px;"></iframe>
-    </section>
-
-    <!-- === Раздел Use of English === -->
-    <section id="use" class="hidden">
-      <iframe src="data/use_of_english.html" width="100%" height="800" style="border:none; border-radius:12px;"></iframe>
-    </section>
-
-    <!-- === Раздел Writing === -->
-    <section id="writing" class="hidden">
-      <iframe src="data/writing_tasks.html" width="100%" height="800" style="border:none; border-radius:12px;"></iframe>
-    </section>
+    <h2>Main Menu</h2>
+    <div class="menu">
+      <a href="useofenglish.html" class="btn">🧩 Use of English</a>
+      <a href="reading.html" class="btn">📖 Reading</a>
+      <a href="listening.html" class="btn">🎧 Listening</a>
+      <a href="writing.html" class="btn">✍️ Writing</a>
+      <a href="trainer.html" class="btn">🤖 AI Bayan Trainer</a>
+    </div>
   </main>
-
-  <!-- === Sidebar (Chat + Journal) === -->
-  <aside class="sidebar">
-    <h3>AI Bayan Chat</h3>
-    <div id="chatBox" class="chat-box"></div>
-    <div class="chat-controls">
-      <input id="chatInput" type="text" placeholder="Ask AI Bayan...">
-      <button onclick="sendMsg()">Send</button>
-    </div>
-
-    <div id="teacherJournal" class="journal">
-      <h3>Teacher Journal</h3>
-      <ul></ul>
-    </div>
-  </aside>
-
-  <!-- === Floating Chat Button === -->
-  <button id="toggleChat">💬</button>
 
   <script src="script.js"></script>
 </body>
