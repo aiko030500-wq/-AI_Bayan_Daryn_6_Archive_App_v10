@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Bayan — DARYN English Olympiad Trainer (Grade 6, 2022–2025)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="pinOverlay" class="overlay">
+    <div class="overlay-card">
+      <h1>AI Bayan — DARYN (Grade 6)</h1>
+      <p>Enter PIN</p>
+      <input id="pinInput" type="password" placeholder="PIN">
+      <button id="pinEnter">Enter</button>
+      <p class="hint">Student: 1402 • Teacher: 9998</p>
+      <div id="pinMsg" class="msg"></div>
+    </div>
+  </div>
+
+  <header>
+    <h1>AI Bayan — DARYN Grade 6</h1>
+    <div class="badges">
+      <span id="roleBadge">Role: Student</span>
+      <span id="starsBadge">⭐ 0</span>
+    </div>
+  </header>
+
+  <nav class="menu">
+    <button onclick="loadContent('data/reading_all.html')">Reading</button>
+    <button onclick="loadContent('data/listening_all.html')">Listening</button>
+    <button onclick="loadContent('data/use_of_english.html')">Use of English</button>
+    <button onclick="loadContent('data/writing_tasks.html')">Writing</button>
+    <button onclick="goHome()">Menu</button>
+  </nav>
+
+  <main id="content">
+    <div class="home card">
+      <h2>Welcome!</h2>
+      <p>Choose a section to start practicing Grade 6 DARYN Olympiad tasks (2022–2025).</p>
+    </div>
+  </main>
+
+  <aside class="sidebar">
+    <h3>AI Bayan Chat</h3>
+    <div id="chatBox" class="chat-box"></div>
+    <div class="chat-controls">
+      <input id="chatInput" type="text" placeholder="Ask AI Bayan...">
+      <button onclick="sendChat()">Send</button>
+    </div>
+
+    <div id="teacherJournal" class="journal hidden">
+      <h3>Teacher Journal</h3>
+      <ul id="journalList"></ul>
+      <button onclick="clearJournal()">Clear Journal</button>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
+</body>
+</html>
