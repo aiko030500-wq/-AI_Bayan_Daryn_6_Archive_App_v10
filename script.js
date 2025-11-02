@@ -1,96 +1,93 @@
-// --- PIN login ---
-const overlay = document.getElementById('pinOverlay');
-const pinInput = document.getElementById('pinInput');
-const pinMsg = document.getElementById('pinMsg');
-const roleBadge = document.getElementById('roleBadge');
-const journal = document.getElementById('teacherJournal');
-const starsBadge = document.getElementById('starsBadge');
-let role = 'student';
-let stars = 0;
-
-document.getElementById('pinEnter').onclick = () => {
-  const pin = pinInput.value.trim();
-  if (pin === '1402') {
-    role = 'student';
-    roleBadge.textContent = 'Role: Student';
-    overlay.style.display = 'none';
-  } else if (pin === '9998') {
-    role = 'teacher';
-    roleBadge.textContent = 'Role: Teacher';
-    overlay.style.display = 'none';
-    journal.classList.remove('hidden');
+/* === PIN Login === */
+const overlay = document.querySelector('.overlay');
+const overlayMsg = document.querySelector('.msg');
+function checkPin() {
+  const input = document.getElementById('pin').value.trim();
+  if (input === "1402" || input === "9998") {
+    overlay.style.display = "none";
+    localStorage.setItem("role", input === "9998" ? "teacher" : "student");
   } else {
-    pinMsg.textContent = '❌ Incorrect PIN';
+    overlayMsg.textContent = "Incorrect PIN. Try again.";
   }
-};
-
-// --- Load content ---
-function loadContent(path) {
-  fetch(path)
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById('content').innerHTML = html;
-    });
 }
 
+/* === Menu Navigation === */
+function goSection(id) {
+  document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 function goHome() {
-  document.getElementById('content').innerHTML = `
-  <div class='home card'>
-  <h2>Welcome!</h2>
-  <p>Select a section above to begin practice.</p>
-  </div>`;
+  document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
+  document.getElementById('home').classList.remove('hidden');
 }
 
-// --- Check answers ---
-function checkAnswers(section, valuePerCorrect) {
-  const inputs = document.querySelectorAll('input[type=radio]:checked');
-  let correct = 0;
-  inputs.forEach(i => {
-    if (i.value === 'correct') correct++;
-  });
-  const score = correct * valuePerCorrect;
-  stars += score;
-  starsBadge.textContent = `⭐ ${stars}`;
-  alert(`${section}: You got ${correct} correct = ${score} points`);
-  if (role === 'teacher') {
-    const li = document.createElement('li');
-    li.textContent = `${section} — ${score} points`;
-    document.getElementById('journalList').appendChild(li);
+/* === Stars and Score === */
+let score = 0;
+function checkAnswer(radio) {
+  if (radio.value === "correct") {
+    score++;
+    alert("⭐ Correct! Your score: " + score);
+    saveJournalEntry("Correct answer in " + document.title);
+  } else {
+    alert("❌ Wrong! Try again.");
   }
 }
 
-// --- Teacher journal ---
-function clearJournal() {
-  document.getElementById('journalList').innerHTML = '';
+/* === Teacher Journal === */
+function saveJournalEntry(text) {
+  let journal = JSON.parse(localStorage.getItem("journal") || "[]");
+  journal.push({ text, time: new Date().toLocaleString() });
+  localStorage.setItem("journal", JSON.stringify(journal));
+  renderJournal();
 }
+function renderJournal() {
+  const ul = document.querySelector('.journal ul');
+  if (!ul) return;
+  ul.innerHTML = '';
+  let journal = JSON.parse(localStorage.getItem("journal") || "[]");
+  journal.forEach(e => {
+    const li = document.createElement("li");
+    li.textContent = e.time + " — " + e.text;
+    ul.appendChild(li);
+  });
+}
+renderJournal();
 
-// --- Simple AI chat simulation ---
-function sendChat() {
-  const input = document.getElementById('chatInput');
-  const box = document.getElementById('chatBox');
-  const msg = input.value.trim();
+/* === AI Chat Bayan === */
+const chatBox = document.querySelector('.chat-box');
+const chatInput = document.getElementById('chatInput');
+function sendMsg() {
+  const msg = chatInput.value.trim();
   if (!msg) return;
-  const user = document.createElement('div');
-  user.textContent = '🧑: ' + msg;
-  box.appendChild(user);
-  const reply = document.createElement('div');
-  reply.textContent = '🤖 AI Bayan: ' + getAIReply(msg);
-  box.appendChild(reply);
-  input.value = '';
-  box.scrollTop = box.scrollHeight;
+  addMsg("🧑‍🎓 You: " + msg);
+  chatInput.value = '';
+  setTimeout(() => {
+    const reply = aiBayanReply(msg);
+    addMsg("🤖 Bayan: " + reply);
+  }, 600);
+}
+function addMsg(text) {
+  const p = document.createElement("p");
+  p.textContent = text;
+  chatBox.appendChild(p);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+function aiBayanReply(input) {
+  input = input.toLowerCase();
+  if (input.includes("hello")) return "Hello! How can I help you today?";
+  if (input.includes("grammar")) return "Remember: verbs in the past simple end with -ed for regular verbs.";
+  if (input.includes("writing")) return "Try to include an introduction, body, and conclusion.";
+  if (input.includes("reading")) return "Focus on keywords and read the question carefully.";
+  if (input.includes("use of english")) return "Practice with examples and review tenses.";
+  return "Good question! Think carefully and I’m sure you’ll find the answer.";
 }
 
-function getAIReply(q) {
-  q = q.toLowerCase();
-  if (q.includes('verb')) return 'A verb is an action word. Example: run, play, read.';
-  if (q.includes('past')) return 'The past form of “go” is “went”.';
-  if (q.includes('article')) return 'We use “a/an” with singular nouns, and “the” for specific ones.';
-  if (q.includes('thank')) return 'You are welcome!';
-  return "I'm your study assistant. Ask me about grammar, vocabulary, or writing!";
-}
-// === Chat toggle for small screens ===
+/* === Chat Toggle (mobile) === */
 const sidebar = document.querySelector('.sidebar');
 const toggleChat = document.getElementById('toggleChat');
-toggleChat.onclick = () => {
-  sidebar.classList.toggle('active');
-};
+if (toggleChat) {
+  toggleChat.onclick = () => {
+    sidebar.classList.toggle('active');
+  };
+}
