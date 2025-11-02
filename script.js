@@ -4,12 +4,14 @@ const overlayMsg = document.querySelector('.msg');
 
 function checkPin() {
   const input = document.getElementById('pin').value.trim();
+
+  // правильный PIN: 1402 (ученик), 9998 (учитель)
   if (input === "1402" || input === "9998") {
-    overlay.style.display = "none";  // скрываем экран входа
-    document.body.classList.add("unlocked"); // показываем меню
+    overlay.style.display = "none"; // скрываем экран входа
+    document.getElementById("home").classList.remove("hidden"); // показываем главное меню
     localStorage.setItem("role", input === "9998" ? "teacher" : "student");
   } else {
-    overlayMsg.textContent = "Incorrect PIN. Try again.";
+    overlayMsg.textContent = ""; // просто без текста ошибки
   }
 }
 
@@ -19,6 +21,7 @@ function goSection(id) {
   document.getElementById(id).classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
 function goHome() {
   document.querySelectorAll('main section').forEach(sec => sec.classList.add('hidden'));
   document.getElementById('home').classList.remove('hidden');
@@ -30,7 +33,7 @@ function checkAnswer(radio) {
   if (radio.value === "correct") {
     score++;
     alert("⭐ Correct! Your score: " + score);
-    saveJournalEntry("Correct answer in " + document.title);
+    saveJournalEntry("Correct answer recorded");
   } else {
     alert("❌ Wrong! Try again.");
   }
@@ -43,6 +46,7 @@ function saveJournalEntry(text) {
   localStorage.setItem("journal", JSON.stringify(journal));
   renderJournal();
 }
+
 function renderJournal() {
   const ul = document.querySelector('.journal ul');
   if (!ul) return;
@@ -59,6 +63,7 @@ renderJournal();
 /* === AI Chat Bayan === */
 const chatBox = document.querySelector('.chat-box');
 const chatInput = document.getElementById('chatInput');
+
 function sendMsg() {
   const msg = chatInput.value.trim();
   if (!msg) return;
@@ -67,22 +72,24 @@ function sendMsg() {
   setTimeout(() => {
     const reply = aiBayanReply(msg);
     addMsg("🤖 Bayan: " + reply);
-  }, 600);
+  }, 500);
 }
+
 function addMsg(text) {
   const p = document.createElement("p");
   p.textContent = text;
   chatBox.appendChild(p);
   chatBox.scrollTop = chatBox.scrollHeight;
 }
+
 function aiBayanReply(input) {
   input = input.toLowerCase();
   if (input.includes("hello")) return "Hello! How can I help you today?";
-  if (input.includes("grammar")) return "Remember: verbs in the past simple end with -ed for regular verbs.";
-  if (input.includes("writing")) return "Try to include an introduction, body, and conclusion.";
-  if (input.includes("reading")) return "Focus on keywords and read the question carefully.";
-  if (input.includes("use of english")) return "Practice with examples and review tenses.";
-  return "Good question! Think carefully and I’m sure you’ll find the answer.";
+  if (input.includes("grammar")) return "Review your tenses and word order.";
+  if (input.includes("writing")) return "Use an introduction, body, and conclusion.";
+  if (input.includes("reading")) return "Read carefully and find key words.";
+  if (input.includes("use of english")) return "Practice grammar and vocabulary exercises.";
+  return "Think again — you can do it!";
 }
 
 /* === Chat Toggle (mobile) === */
