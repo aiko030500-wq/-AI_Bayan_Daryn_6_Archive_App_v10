@@ -95,3 +95,45 @@ nav.menu button:hover {
   border: 1px solid #c9d6ff;
   border-radius: 10px;
 }
+/* ======== Chat Panel Fix (Responsive Toggle) ======== */
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 62px;
+  width: 320px;
+  height: calc(100vh - 62px);
+  border-left: 1px solid rgba(255,255,255,0.12);
+  background: #0a255e;
+  padding: 12px;
+  overflow-y: auto;
+  color: #eaf1ff;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* скрыта на мобильных */
+.sidebar.hidden-mobile {
+  transform: translateX(100%);
+}
+
+/* кнопка для открытия/закрытия */
+#toggleChat {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background: #fff;
+  color: #0b2a66;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+@media (max-width: 900px) {
+  main { margin-right: 0; }
+  .sidebar { transform: translateX(100%); }
+  .sidebar.active { transform: translateX(0); }
+}
