@@ -1,4 +1,5 @@
 /* === PIN Login === */
+alert("✅ script.js loaded!");
 function checkPin() {
   const pin = document.getElementById("pin").value.trim();
   if (pin === "1402" || pin === "9998") {
