@@ -1,10 +1,12 @@
 /* === PIN Login === */
 const overlay = document.querySelector('.overlay');
 const overlayMsg = document.querySelector('.msg');
+
 function checkPin() {
   const input = document.getElementById('pin').value.trim();
   if (input === "1402" || input === "9998") {
-    overlay.style.display = "none";
+    overlay.style.display = "none";  // скрываем экран входа
+    document.body.classList.add("unlocked"); // показываем меню
     localStorage.setItem("role", input === "9998" ? "teacher" : "student");
   } else {
     overlayMsg.textContent = "Incorrect PIN. Try again.";
