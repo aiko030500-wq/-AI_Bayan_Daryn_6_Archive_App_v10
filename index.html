@@ -24,20 +24,26 @@
     </div>
   </header>
 
-  <nav class="menu">
-    <button onclick="loadContent('data/reading_all.html')">Reading</button>
-    <button onclick="loadContent('data/listening_all.html')">Listening</button>
-    <button onclick="loadContent('data/use_of_english.html')">Use of English</button>
-    <button onclick="loadContent('data/writing_tasks.html')">Writing</button>
-    <button onclick="goHome()">Menu</button>
-  </nav>
+ <nav class="menu">
+  <button onclick="goSection('reading')">Reading</button>
+  <button onclick="goSection('listening')">Listening</button>
+  <button onclick="goSection('use')">Use of English</button>
+  <button onclick="goSection('writing')">Writing</button>
+  <button onclick="goHome()">Menu</button>
+</nav>
 
-  <main id="content">
-    <div class="home card">
+  <main>
+  <!-- === Главная страница === -->
+  <section id="home">
+    <div class="card">
       <h2>Welcome!</h2>
       <p>Choose a section to start practicing Grade 6 DARYN Olympiad tasks (2022–2025).</p>
     </div>
-  </main>
+  </section>
+
+  <!-- === Раздел Reading === -->
+  <section id="reading" class="hidden">
+    <iframe src="data/reading_all.html" width="100%" height="800
 
   <aside class="sidebar">
     <h3>AI Bayan Chat</h3>
